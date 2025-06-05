@@ -50,17 +50,17 @@ export const createBook = async (
  * Service function to fetch all books with author details.
  * @returns Array of all book objects, including author name.
  */
-export const getAllBooks = async (): Promise<any[]> => {
+export const getAllBooks = async (): Promise<{books: any[]; totalCount: number} > => {
   try {
 
-    const allBooks = await bookRepository.find({
+    const [allBooks, totalCount]  = await bookRepository.findAndCount({
       relations: ['author'],
       order: {
         createdAt: 'DESC'
       }
     });
 
-    const booksWithAuthorName = allBooks.map(book => ({
+    const booksWithAuthorDetails = allBooks.map(book => ({
       id: book.id,
       title: book.title,
       genre: book.genre,
@@ -71,8 +71,7 @@ export const getAllBooks = async (): Promise<any[]> => {
       createdAt: book.createdAt,
 
     }));
-
-    return booksWithAuthorName;
+   return { totalCount: totalCount,books: booksWithAuthorDetails };
   } catch (error: any) {
     if (error instanceof ApplicationError) {
       throw error;

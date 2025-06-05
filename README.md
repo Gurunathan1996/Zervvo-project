@@ -2,6 +2,21 @@
 
 This is a robust backend API built with Node.js, TypeScript, and TypeORM, designed to handle user authentication (JWT-based), manage authors and books with a relational database, implement rate limiting, and support file uploads.
 
+
+##### Install dependencies:
+
+npm install --force
+
+Node version is need above 20
+
+### Redis server
+
+sudo systemctl status redis-server
+sudo systemctl enable redis-server # To ensure it starts on boot
+sudo systemctl start redis-server  # To start it if not running
+sudo systemctl stop redis-server   # To stop it
+sudo systemctl restart redis-server # To restart it
+
 ##### Features
 
 JWT-Based Authentication: Secure user registration and login with JSON Web Tokens.
@@ -78,9 +93,7 @@ Clone the repository:
 
 git clone
 
-##### Install dependencies:
 
-npm install --force
 
 
 

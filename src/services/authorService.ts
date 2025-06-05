@@ -32,15 +32,15 @@ export const createAuthor = async (name: string, bio?: string): Promise<Author> 
  * Service function to fetch all authors.
  * @returns An array of all author objects, ordered by creation date.
  */
-export const getAllAuthors = async (): Promise<Author[]> => {
+export const getAllAuthors = async (): Promise<{allAuthors:Author[],totalCount:number}> => {
   try {
     const authorRepository = AppDataSource.getRepository(Author);
-    const allAuthors = await authorRepository.find({
+    const  [allAuthors, totalCount] = await authorRepository.findAndCount({
       order: {
         createdAt: 'DESC'
       }
     });
-    return allAuthors;
+    return {totalCount:totalCount,allAuthors:allAuthors};
   } catch (error: any) {
     if (error instanceof ApplicationError) {
       throw error;
