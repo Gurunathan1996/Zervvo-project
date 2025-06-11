@@ -38,6 +38,9 @@ export const getAllAuthors = async (): Promise<{allAuthors:Author[],totalCount:n
     const  [allAuthors, totalCount] = await authorRepository.findAndCount({
       order: {
         createdAt: 'DESC'
+      },
+      relations: {
+        books: true
       }
     });
     return {totalCount:totalCount,allAuthors:allAuthors};
@@ -58,7 +61,7 @@ export const getAuthorById = async (id: number): Promise<Author | null> => {
   try {
 
     const authorRepository = AppDataSource.getRepository(Author);
-    const author = await authorRepository.findOne({ where: { id: id } });
+    const author = await authorRepository.findOne({ where: { id: id },relations: ['books'], });
     if (!author) {
       throw new ApplicationError('Author not found.', 404, 'AUTHOR_NOT_FOUND');
     }
