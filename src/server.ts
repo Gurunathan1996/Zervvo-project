@@ -28,7 +28,7 @@ app.use('/api/books', authenticateToken, protectedApiRateLimit, bookRoutes);
 app.use('/api/upload', authenticateToken, protectedApiRateLimit, uploadRoutes);
 
 app.get('/', (req: Request, res: Response) => {
-  res.status(200).json({ message: 'Welcome to the Interview Backend API (TypeScript with TypeORM and express-rate-limit)!' });
+  res.status(200).json({ message: 'Welcome to the Interview Backend API (TypeScript with TypeORM and redis-rate-limit)!' });
 });
 
 app.use(globalErrorHandler);
